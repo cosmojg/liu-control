@@ -4,7 +4,7 @@ determine the stability of model dynamics (burst period and duty cycle)
 with controllers versus without
 %}
 
-function [stability,oldmetrics,newmetrics] = liu_stability(gbars)
+function [stability,newmetrics,oldmetrics] = liu_stability(gbars)
 assert(isvector(gbars), 'gbars is not a vector')
 assert(length(gbars) == 8, 'gbars does not have 8 elements')
 
