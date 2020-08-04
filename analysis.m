@@ -13,14 +13,14 @@ oldmets = repmat(xtools.V2metrics(0), length(conductances), 1);
 % determine stability of model dynamics with liu_stability
 parfor i = 1:length(conductances)
     hash = hashlib.md5hash(conductances(i,:));
-    if isfile(join([cachefolder,hash,'.mat']))
-        temp = load(join([cachefolder,hash,'.mat']));
+    if isfile(fullfile(cachefolder,[hash,'.mat']))
+        temp = load(fullfile(cachefolder,[hash,'.mat']));
         stabs(i,1) = temp.stability;
         newmets(i,1) = temp.newmetrics;
         oldmets(i,1) = temp.oldmetrics;
     else
         [stability,newmetrics,oldmetrics] = liu_stability(conductances(i,:));
-        parsave(join([cachefolder,hash,'.mat']),stability,newmetrics,oldmetrics);
+        parsave(fullfile(cachefolder,[hash,'.mat']),stability,newmetrics,oldmetrics);
         stabs(i,1) = stability;
         newmets(i,1) = newmetrics;
         oldmets(i,1) = oldmetrics;
