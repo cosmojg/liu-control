@@ -8,6 +8,11 @@ function [stability,newmetrics,oldmetrics] = liu_stability(gbars)
 assert(isvector(gbars), 'gbars is not a vector')
 assert(length(gbars) == 8, 'gbars does not have 8 elements')
 
+% create cache folder if it does not already exist
+if not(isfolder('cache'))
+    mkdir('cache')
+end
+
 % check the cache for existing outputs
 hash = hashlib.md5hash(gbars);
 if isfile(fullfile('cache',[hash,'.mat']))
