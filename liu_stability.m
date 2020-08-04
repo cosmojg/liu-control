@@ -8,6 +8,14 @@ function [stability,newmetrics,oldmetrics] = liu_stability(gbars)
 assert(isvector(gbars), 'gbars is not a vector')
 assert(length(gbars) == 8, 'gbars does not have 8 elements')
 
+% check the cache for existing outputs
+hash = hashlib.md5hash(gbars);
+if isfile(fullfile('cache',[hash,'.mat']))
+    temp = load(fullfile('cache',[hash,'.mat']));
+    stability = temp.stability;
+    newmetrics = temp.newmetrics;
+    oldmetrics = temp.oldmetrics;
+else
 % make a bursting neuron
 x = xolotl.examples.neurons.BurstingNeuron;
 
@@ -70,3 +78,7 @@ newmetrics = xtools.V2metrics(voltages, 'sampling_rate', 10);
 bpdiff = abs((oldmetrics.burst_period - newmetrics.burst_period)/oldmetrics.burst_period);
 dcdiff = abs((oldmetrics.duty_cycle_mean - newmetrics.duty_cycle_mean)/oldmetrics.duty_cycle_mean);
 stability = bpdiff < .1 && dcdiff < .1;
+
+% cache outputs
+save(fullfile('cache',[hash,'.mat']),'stability','newmetrics','oldmetrics');
+end
