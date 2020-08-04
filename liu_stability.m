@@ -5,9 +5,10 @@ with controllers versus without
 %}
 
 function [stability,newmetrics,oldmetrics] = liu_stability(gbars)
-% ensure input is a vector of 8 elements
+% ensure input is a vector of 8 doubles
 assert(isvector(gbars), 'gbars is not a vector')
 assert(length(gbars) == 8, 'gbars does not have 8 elements')
+assert(isa(gbars,'double'), 'gbars is not of type double')
 
 % create cache folder if it does not already exist
 if not(isfolder('cache'))
