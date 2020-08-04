@@ -1,9 +1,7 @@
-% set user-specific parameters
-modelparams = '/home/cosmo/code/liu-control/conductances.mat';
 cachefolder = '/home/cosmo/code/liu-control/cache/';
 
 % load provided models
-load(modelparams) % add "conductances" to workspace
+load('conductances.mat')
 
 % initialize data structures
 stabs = zeros(length(conductances), 1);
