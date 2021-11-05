@@ -77,7 +77,7 @@ else
     x.set('*Target',sensor_targets);
     
     % allow model to stabilize
-    x.t_end = 500e3;
+    x.t_end = 36000e3;
     x.integrate;
     
     % check if burst period and duty cycle are stable with controllers
